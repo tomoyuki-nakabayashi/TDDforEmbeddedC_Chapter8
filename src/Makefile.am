@@ -1,2 +1,2 @@
-bin_PROGRAMS = leddriver
-leddriver_SOURCES = main.c LedDriver.c
+bin_PROGRAMS = lightscheduler
+leddriver_SOURCES = main.c LightScheduler.c

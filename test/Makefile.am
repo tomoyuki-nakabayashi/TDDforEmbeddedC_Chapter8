@@ -19,7 +19,7 @@ gtest_CPPFLAGS = \
 
 test_sources = \
   TestMain.cpp \
-  LedDriverTest.cpp
+  LightSchedulerTest.cpp
 target_sources = \
-  $(top_srcdir)/src/LedDriver.c
+  $(top_srcdir)/src/LightScheduler.c
 gtest_SOURCES = $(test_sources) $(target_sources)
