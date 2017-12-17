@@ -2,8 +2,8 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(LedDriver googletest, 1.0, tomo.wait.for.it.yuki@gmail.com)
-AC_CONFIG_SRCDIR([src/LedDriver.c])
+AC_INIT(HomeAutomation googletest, 1.0, tomo.wait.for.it.yuki@gmail.com)
+AC_CONFIG_SRCDIR([src/LightScheduler.c])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects no-dependencies])
 

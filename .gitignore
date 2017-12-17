@@ -23,7 +23,7 @@ m4/
 missing
 src/.deps/
 src/Makefile.in
-src/leddriver
+src/lightscheduler
 src/*.o
 stamp-h1
 .deps/
@@ -33,3 +33,4 @@ test/.libs/
 test/gtest
 test/*.o
 test/libgtest.la
+test/libgmock.la
