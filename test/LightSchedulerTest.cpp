@@ -5,20 +5,31 @@ extern "C" {
 
 namespace light_scheduler_test{
 
-class LightSchedulerTest : public ::testing::Test
-{
-  virtual void SetUp()
+  class LightSchedulerTest : public ::testing::Test
   {
-  }
-  virtual void TearDown()
+    virtual void SetUp()
+    {
+    }
+    virtual void TearDown()
+    {
+    }
+  };
+/* 
+  TEST_F(LightSchedulerTest, ScheduleOnEverydayNotTimeYet)
   {
+    LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
+    FakeTimeService_SetDay(MONDAY);
+    FakeTimeService_SetMinute(1199);
+    LightScheduler_Wakeup();
+
+    EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
+    EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
   }
-};
 
-TEST_F(LightSchedulerTest, ScheduleOnEverydayNotTimeYet)
-{
-  EXPECT_TRUE(true);
-}
-
-
+  TEST_F(LightSchedulerTest, NoChangeToLightsDuringInitialization)
+  {
+    EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
+    EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+  }
+ */
 } // namespace
