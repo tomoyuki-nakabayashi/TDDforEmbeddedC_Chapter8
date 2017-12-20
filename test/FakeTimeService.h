@@ -7,4 +7,7 @@ enum {
   TIME_UNKNOWN = -1,
 };
 
-#endif TEST_FAKE_TIME_SERVICE_H_
+void FakeTimeService_SetMinute(int minute);
+void FakeTimeService_SetDay(int day);
+
+#endif //TEST_FAKE_TIME_SERVICE_H_

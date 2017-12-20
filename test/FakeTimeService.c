@@ -20,3 +20,13 @@ void TimeService_GetTime(Time *time)
   time->minuteOfDay = minuteOfDay;
   time->dayOfWeek = dayOfWeek;
 }
+
+void FakeTimeService_SetMinute(int minute)
+{
+  minuteOfDay = minute;
+}
+
+void FakeTimeService_SetDay(int day)
+{
+  dayOfWeek = day;
+}

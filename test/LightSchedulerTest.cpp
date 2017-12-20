@@ -14,7 +14,7 @@ namespace light_scheduler_test{
     {
     }
   };
-/* 
+/* These tests incur build errors. We'll return here later.
   TEST_F(LightSchedulerTest, ScheduleOnEverydayNotTimeYet)
   {
     LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
