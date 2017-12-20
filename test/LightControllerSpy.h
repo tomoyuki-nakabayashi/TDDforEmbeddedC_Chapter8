@@ -1,7 +1,9 @@
+#ifndef TEST_LIGHT_CONTROLLER_SPY_H_
+#define TEST_LIGHT_CONTROLLER_SPY_H_
+
 #include "LightController.h"
 
-enum
-{
+enum {
   LIGHT_ID_UNKNOWN = -1,
   LIGHT_STATE_UNKNOWN = -1,
   LIGHT_OFF = 0,
@@ -10,3 +12,5 @@ enum
 
 int LightControllerSpy_GetLastId(void);
 int LightControllerSpy_GetLastState(void);
+
+#endif TEST_LIGHT_CONTROLLER_SPY_H_
