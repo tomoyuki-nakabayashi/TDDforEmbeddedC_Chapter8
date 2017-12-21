@@ -46,4 +46,15 @@ namespace light_scheduler_test{
     EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
     EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
   }
+
+  TEST_F(LightSchedulerTest, ScheduleOnEverydayItsTime)
+  {
+    LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
+    FakeTimeService_SetDay(MONDAY);
+    FakeTimeService_SetMinute(1200);
+    LightScheduler_Wakeup();
+
+    EXPECT_EQ(3, LightControllerSpy_GetLastId());
+    EXPECT_EQ(LIGHT_ON, LightControllerSpy_GetLastState());
+  }
 } // namespace

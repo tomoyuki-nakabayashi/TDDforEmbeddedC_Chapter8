@@ -6,6 +6,10 @@ typedef enum  {
     SUNDAY=1, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
 } Day;
 
+typedef enum {
+    UNUSED = -1
+} LightStatus;
+
 void LightScheduler_Create(void);
 void LightScheduler_Destory(void);
 void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay);
