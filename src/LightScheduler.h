@@ -6,4 +6,8 @@ typedef enum  {
     SUNDAY=1, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
 } Day;
 
+void LightScheduler_Create(void);
+void LightScheduler_Destory(void);
+void LightScheduler_Wakeup(void);
+
 #endif //SRC_LIGHT_SCHEDULER_H_
