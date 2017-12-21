@@ -21,6 +21,12 @@ namespace light_scheduler_test{
     }
   };
 
+  TEST_F(LightSchedulerTest, NoChangeToLightsDuringInitialization)
+  {
+    EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
+    EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+  }
+
   TEST_F(LightSchedulerTest, NoScheduleNothingHppens)
   {
     FakeTimeService_SetDay(MONDAY);
@@ -29,7 +35,7 @@ namespace light_scheduler_test{
     EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
     EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
   }
-/* These tests incur build errors. We'll return here later.
+
   TEST_F(LightSchedulerTest, ScheduleOnEverydayNotTimeYet)
   {
     LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
@@ -40,11 +46,4 @@ namespace light_scheduler_test{
     EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
     EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
   }
-
-  TEST_F(LightSchedulerTest, NoChangeToLightsDuringInitialization)
-  {
-    EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-    EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
-  }
- */
 } // namespace
