@@ -150,4 +150,25 @@ namespace light_scheduler_test{
     LightScheduler_Wakeup();
     checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
   }
+
+  class LightSchedulerInitAndCleanup : public ::testing::Test
+  {
+  };
+
+  TEST_F(LightSchedulerInitAndCleanup, CreateStartsOneMinuteAlarm)
+  {
+    LightScheduler_Create();
+    EXPECT_EQ((void*)LightScheduler_Wakeup,
+              (void*)FakeTimeService_GetAlarmCallcack());
+
+    EXPECT_EQ(60, FakeTimeService_GetAlarmPeriod());
+    LightScheduler_Destory();
+  }
+
+  TEST_F(LightSchedulerInitAndCleanup, DestroyCancelsOneMinuteAlarm)
+  {
+    LightScheduler_Create();
+    LightScheduler_Destory();
+    EXPECT_EQ(NULL, (void*)FakeTimeService_GetAlarmCallcack());
+  }
 } // namespace
