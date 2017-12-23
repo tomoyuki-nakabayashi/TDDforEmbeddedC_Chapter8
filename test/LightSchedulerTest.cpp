@@ -28,8 +28,15 @@ namespace light_scheduler_test{
 
     void checkLightState(int id, int level)
     {
-      EXPECT_EQ(id, LightControllerSpy_GetLastId());
-      EXPECT_EQ(level, LightControllerSpy_GetLastState());
+      if(id == LIGHT_ID_UNKNOWN)
+      {
+        EXPECT_EQ(id, LightControllerSpy_GetLastId());
+        EXPECT_EQ(level, LightControllerSpy_GetLastState());
+      }
+      else
+      {
+        EXPECT_EQ(level, LightControllerSpy_GetLightState(id));
+      }
     }
   };
 
@@ -149,6 +156,19 @@ namespace light_scheduler_test{
     setTimeTo(SUNDAY, 1200);
     LightScheduler_Wakeup();
     checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+  }
+
+  TEST_F(LightSchedulerTest, ScheduleTwoEventsAtTheSameTime)
+  {
+    LightScheduler_ScheduleTurnOn(3, SUNDAY, 1200);
+    LightScheduler_ScheduleTurnOn(12, SUNDAY, 1200);
+
+    setTimeTo(SUNDAY, 1200);
+
+    LightScheduler_Wakeup();
+
+    checkLightState(3, LIGHT_ON);
+    checkLightState(12, LIGHT_ON);
   }
 
   class LightSchedulerInitAndCleanup : public ::testing::Test
