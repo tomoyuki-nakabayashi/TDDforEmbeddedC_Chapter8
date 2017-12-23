@@ -118,4 +118,36 @@ namespace light_scheduler_test{
     LightScheduler_Wakeup();
     checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
   }
+
+  TEST_F(LightSchedulerTest, ScheduleWeeDayItsMonday)
+  {
+    LightScheduler_ScheduleTurnOn(3, WEEKDAY, 1200);
+    setTimeTo(MONDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(3, LIGHT_ON);
+  }
+
+  TEST_F(LightSchedulerTest, ScheduleWeeDayItsFriday)
+  {
+    LightScheduler_ScheduleTurnOn(3, WEEKDAY, 1200);
+    setTimeTo(FRIDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(3, LIGHT_ON);
+  }
+
+  TEST_F(LightSchedulerTest, ScheduleWeeDayItsWednesday)
+  {
+    LightScheduler_ScheduleTurnOn(3, WEEKDAY, 1200);
+    setTimeTo(WEDNESDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(3, LIGHT_ON);
+  }
+
+  TEST_F(LightSchedulerTest, ScheduleWeeDayButItsSunday)
+  {
+    LightScheduler_ScheduleTurnOn(3, WEEKDAY, 1200);
+    setTimeTo(SUNDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+  }
 } // namespace
