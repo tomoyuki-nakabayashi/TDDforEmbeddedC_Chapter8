@@ -1,4 +1,6 @@
 #include "LightScheduler.h"
+#include "LightController.h"
+#include "TimeService.h"
 
 typedef struct {
   int id;
@@ -25,5 +27,13 @@ void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
 
 void LightScheduler_Wakeup(void)
 {
+  Time time;
+  TimeService_GetTime(&time);
 
+  if(scheduledEvent.id == UNUSED)
+    return;
+  if(time.minuteOfDay != scheduledEvent.minuteOfDay)
+    return;
+  
+  LightController_On(scheduledEvent.id);
 }
