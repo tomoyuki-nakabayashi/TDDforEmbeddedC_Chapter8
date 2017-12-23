@@ -19,42 +19,55 @@ namespace light_scheduler_test{
       LightController_Destory();
       LightScheduler_Destory();
     }
+  protected:
+    void setTimeTo(int day, int minuteOfDay)
+    {
+      FakeTimeService_SetDay(day);
+      FakeTimeService_SetMinute(minuteOfDay);
+    }
+
+    void checkLightState(int id, int level)
+    {
+      EXPECT_EQ(id, LightControllerSpy_GetLastId());
+      EXPECT_EQ(level, LightControllerSpy_GetLastState());
+    }
   };
 
   TEST_F(LightSchedulerTest, NoChangeToLightsDuringInitialization)
   {
-    EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-    EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
   }
 
   TEST_F(LightSchedulerTest, NoScheduleNothingHppens)
   {
-    FakeTimeService_SetDay(MONDAY);
-    FakeTimeService_SetMinute(100);
+    setTimeTo(MONDAY, 100);
     LightScheduler_Wakeup();
-    EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-    EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
   }
 
   TEST_F(LightSchedulerTest, ScheduleOnEverydayNotTimeYet)
   {
     LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
-    FakeTimeService_SetDay(MONDAY);
-    FakeTimeService_SetMinute(1199);
+    setTimeTo(MONDAY, 1199);
     LightScheduler_Wakeup();
-
-    EXPECT_EQ(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-    EXPECT_EQ(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
   }
 
   TEST_F(LightSchedulerTest, ScheduleOnEverydayItsTime)
   {
     LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
-    FakeTimeService_SetDay(MONDAY);
-    FakeTimeService_SetMinute(1200);
+    setTimeTo(MONDAY, 1200);
     LightScheduler_Wakeup();
 
-    EXPECT_EQ(3, LightControllerSpy_GetLastId());
-    EXPECT_EQ(LIGHT_ON, LightControllerSpy_GetLastState());
+    checkLightState(3, LIGHT_ON);
+  }
+
+  TEST_F(LightSchedulerTest, ScheduleOffEverydayItsTime)
+  {
+    LightScheduler_ScheduleTurnOff(3, EVERYDAY, 1200);
+    setTimeTo(MONDAY, 1200);
+    LightScheduler_Wakeup();
+
+    checkLightState(3, LIGHT_OFF);
   }
 } // namespace
