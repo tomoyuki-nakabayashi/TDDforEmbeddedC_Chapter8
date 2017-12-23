@@ -70,4 +70,20 @@ namespace light_scheduler_test{
 
     checkLightState(3, LIGHT_OFF);
   }
+
+  TEST_F(LightSchedulerTest, ScheduleTeusdayButItsMonday)
+  {
+    LightScheduler_ScheduleTurnOn(3, TUESDAY, 1200);
+    setTimeTo(MONDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+  }
+
+  TEST_F(LightSchedulerTest, ScheduleTeusdayAndItsTuesday)
+  {
+    LightScheduler_ScheduleTurnOn(3, TUESDAY, 1200);
+    setTimeTo(TUESDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(3, LIGHT_ON);
+  }
 } // namespace
