@@ -31,4 +31,12 @@ namespace light_controller_spy_test{
     EXPECT_EQ(LIGHT_ON, LightControllerSpy_GetLastState());
   }
 
+  TEST_F(LightControllerSpyTest, RememberAllLightStates)
+  {
+    LightController_On(0);
+    LightController_Off(31);
+    EXPECT_EQ(LIGHT_ON, LightControllerSpy_GetLightState(0));
+    EXPECT_EQ(LIGHT_OFF, LightControllerSpy_GetLightState(31));
+  }
+
 }
