@@ -204,6 +204,19 @@ namespace light_scheduler_test{
     checkLightState(7, LIGHT_ON);
   }
 
+  TEST_F(LightSchedulerTest, AcceptsValidLightIds)
+  {
+    EXPECT_EQ(LS_OK, LightScheduler_ScheduleTurnOn(0, MONDAY, 600));
+    EXPECT_EQ(LS_OK, LightScheduler_ScheduleTurnOn(15, MONDAY, 600));
+    EXPECT_EQ(LS_OK, LightScheduler_ScheduleTurnOn(31, MONDAY, 600));
+  }
+
+  TEST_F(LightSchedulerTest, RejectsInvalidLightIds)
+  {
+    EXPECT_EQ(LS_ID_OUT_OF_BOUNDS, LightScheduler_ScheduleTurnOn(-1, MONDAY, 600));
+    EXPECT_EQ(LS_ID_OUT_OF_BOUNDS, LightScheduler_ScheduleTurnOn(32, MONDAY, 600));
+  }
+
   class LightSchedulerInitAndCleanup : public ::testing::Test
   {
   };

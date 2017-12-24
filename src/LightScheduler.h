@@ -7,6 +7,7 @@ typedef enum  {
 } Day;
 
 enum {
+    LS_ID_OUT_OF_BOUNDS = -2,
     LS_TOO_MANY_EVENTS = -1,
     LS_OK = 0
 };
