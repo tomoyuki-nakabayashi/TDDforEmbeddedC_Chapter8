@@ -190,6 +190,20 @@ namespace light_scheduler_test{
     EXPECT_EQ(LS_OK, LightScheduler_ScheduleTurnOn(13, MONDAY, 1000));
   }
 
+  TEST_F(LightSchedulerTest, RemoveMultipleScheduledEvent)
+  {
+    LightScheduler_ScheduleTurnOn(6, MONDAY, 600);
+    LightScheduler_ScheduleTurnOn(7, MONDAY, 600);
+    LightScheduler_ScheduleRemove(6, MONDAY, 600);
+
+    setTimeTo(MONDAY, 600);
+
+    LightScheduler_Wakeup();
+
+    checkLightState(6, LIGHT_STATE_UNKNOWN);
+    checkLightState(7, LIGHT_ON);
+  }
+
   class LightSchedulerInitAndCleanup : public ::testing::Test
   {
   };
