@@ -171,6 +171,15 @@ namespace light_scheduler_test{
     checkLightState(12, LIGHT_ON);
   }
 
+  TEST_F(LightSchedulerTest, RejectsTooManyEvents)
+  {
+    int i;
+    for(i=0; i<128; i++)
+      EXPECT_EQ(LS_OK, LightScheduler_ScheduleTurnOn(6, MONDAY, 600+i));
+    
+    EXPECT_EQ(LS_TOO_MANY_EVENTS, LightScheduler_ScheduleTurnOn(6, MONDAY, 600+i));
+  }
+
   class LightSchedulerInitAndCleanup : public ::testing::Test
   {
   };

@@ -20,7 +20,7 @@ typedef struct {
 
 static ScheduledLightEvent scheduledEvents[MAX_EVENTS];
 
-static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
+static int scheduleEvent(int id, Day day, int minuteOfDay, int event)
 {
   for(int i=0; i<MAX_EVENTS; i++)
   {
@@ -30,19 +30,20 @@ static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
       scheduledEvents[i].minuteOfDay = minuteOfDay;
       scheduledEvents[i].event = event;
       scheduledEvents[i].id = id;
-      break;
+      return LS_OK;
     }
   }
+  return LS_TOO_MANY_EVENTS;
 }
 
-void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
+int LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
 {
-  scheduleEvent(id, day, minuteOfDay, TURN_ON);
+  return scheduleEvent(id, day, minuteOfDay, TURN_ON);
 }
 
-void LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
+int LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
 {
-  scheduleEvent(id, day, minuteOfDay, TURN_OFF);
+  return scheduleEvent(id, day, minuteOfDay, TURN_OFF);
 }
 
 static void operateLight(ScheduledLightEvent *lightEvent)
