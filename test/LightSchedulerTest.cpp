@@ -180,6 +180,16 @@ namespace light_scheduler_test{
     EXPECT_EQ(LS_TOO_MANY_EVENTS, LightScheduler_ScheduleTurnOn(6, MONDAY, 600+i));
   }
 
+  TEST_F(LightSchedulerTest, RemoveRecyclesScheduleSlot)
+  {
+    for(int i; i<128; i++)
+      EXPECT_EQ(LS_OK, LightScheduler_ScheduleTurnOn(6, MONDAY, 600+i));
+    
+    LightScheduler_ScheduleRemove(6, MONDAY, 600);
+
+    EXPECT_EQ(LS_OK, LightScheduler_ScheduleTurnOn(13, MONDAY, 1000));
+  }
+
   class LightSchedulerInitAndCleanup : public ::testing::Test
   {
   };
